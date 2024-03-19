@@ -1,6 +1,4 @@
-# Welcome to Streamlit!
+# Interactive scatterplot for sentiment scores and audio features for songs in the Billboard Hot 100
+# Plot allows for hoverable data points and interchangeable axis variables
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire. :heart:
-
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+# Created as part of STA141B Final Project by Jeff Nguyen and JT Herren
