@@ -3,8 +3,7 @@ import pandas as pd
 import streamlit as st
 import plotly.graph_objs as go
 
-# Load your DataFrame (assuming `df` is defined somewhere)
-# df = pd.read_csv("your_data.csv")
+# df = pd.read_csv("data.csv")
 
 def update_plot(x_axis, y_axis):
     fig = go.Figure(data=go.Scatter(x=df[x_axis],
