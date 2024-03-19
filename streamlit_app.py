@@ -1,40 +1,28 @@
-import altair as alt
-import numpy as np
+# Import necessary libraries
 import pandas as pd
 import streamlit as st
+import plotly.graph_objs as go
 
-"""
-# Welcome to Streamlit!
+# Load your DataFrame (assuming `df` is defined somewhere)
+# df = pd.read_csv("your_data.csv")
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:.
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+def update_plot(x_axis, y_axis):
+    fig = go.Figure(data=go.Scatter(x=df[x_axis],
+                                    y=df[y_axis],
+                                    mode='markers',
+                                    text=df['Song'] + " by " + df['Artist'],
+                                    marker=dict(color='LightSkyBlue', size=10, opacity=0.5)))
+    
+    fig.update_layout(title=f'{x_axis} vs. {y_axis}',
+                      xaxis_title=x_axis,
+                      yaxis_title=y_axis,
+                      hovermode='closest')
+    
+    st.plotly_chart(fig)
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+# Create Streamlit widgets for selecting the X and Y axis data
+x_axis = st.selectbox('Select X-axis:', options=df.columns, index=0)
+y_axis = st.selectbox('Select Y-axis:', options=df.columns, index=1)
 
-num_points = st.slider("Number of points in spiral", 1, 10000, 1100)
-num_turns = st.slider("Number of turns in spiral", 1, 300, 31)
-
-indices = np.linspace(0, 1, num_points)
-theta = 2 * np.pi * num_turns * indices
-radius = indices
-
-x = radius * np.cos(theta)
-y = radius * np.sin(theta)
-
-df = pd.DataFrame({
-    "x": x,
-    "y": y,
-    "idx": indices,
-    "rand": np.random.randn(num_points),
-})
-
-st.altair_chart(alt.Chart(df, height=700, width=700)
-    .mark_point(filled=True)
-    .encode(
-        x=alt.X("x", axis=None),
-        y=alt.Y("y", axis=None),
-        color=alt.Color("idx", legend=None, scale=alt.Scale()),
-        size=alt.Size("rand", legend=None, scale=alt.Scale(range=[1, 150])),
-    ))
+# Add a button to update the plot
+st.button('Update Plot', on_click=update_plot, args=(x_axis, y_axis))
